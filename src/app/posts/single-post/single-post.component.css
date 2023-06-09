@@ -1,0 +1,35 @@
+.comment {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 50%; /* Set the width to occupy half of the page */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.comment form {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.comment input {
+  flex: 1;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+
+.comment button {
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: auto 5px;
+}
+
+
+

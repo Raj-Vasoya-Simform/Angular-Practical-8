@@ -1,0 +1,76 @@
+<div class="row">
+  <div class="col-md-8">
+    <h3 style="margin-top: 10px">Posts List</h3>
+    <div>
+      <a
+        style="justify-content: center; width: 20%; margin: 0 auto"
+        class="btn btn-primary"
+        [routerLink]="['/posts/add']"
+        >Add Post</a
+      >
+    </div>
+    <hr />
+
+    <div *ngIf="posts as postData">
+      <div class="card mb-3" *ngFor="let post of postData">
+        <div class="card-body">
+          <span
+            ><i>User ID: </i><b>{{ post.id }}</b></span
+          >
+          <h5 class="card-title">{{ post.title }}</h5>
+          <p class="card-text">{{ post.description }}</p>
+          <div class="d-flex justify-content-end align-items-start">
+            <a class="btn btn-primary" (click)="onEditPost(post.id)">
+              <i class="bi bi-pencil-fill"></i>
+            </a>
+            <button class="btn btn-danger" (click)="onDeletePost(post.id)">
+              <i class="bi bi-trash-fill"></i>
+            </button>
+            <a [routerLink]="['details', post.id]" class="btn btn-info">
+              <i class="bi bi-info-circle-fill"></i>
+            </a>
+          </div>
+          <hr />
+
+          <ng-container *ngIf="selectedPostId !== post.id">
+            <button
+              class="btn btn-primary"
+              (click)="toggleCommentForm(post.id)"
+            >
+              Add Comment
+            </button>
+          </ng-container>
+
+          <!-- Add comment form -->
+          <form
+            *ngIf="selectedPostId === post.id"
+            (ngSubmit)="onSubmitComment(post.id, commentText)"
+            class="comment-form"
+          >
+            <textarea name="content" [(ngModel)]="commentText"></textarea>
+            <div class="btn-group">
+              <button class="btn btn-success" type="submit">Add Comment</button>
+              <button
+                class="btn btn-danger"
+                (click)="toggleCommentForm(post.id)"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Total comments count -->
+        <div class="total-comments">
+          <a class="commentsCount" [routerLink]="['details', post.id]"
+            ><b>Total Comments: {{ getCommentsByPostId(post.id).length }}</b></a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <router-outlet></router-outlet>
+  </div>
+</div>

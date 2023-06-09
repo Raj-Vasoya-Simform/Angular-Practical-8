@@ -1,0 +1,45 @@
+<h1><b>Post Details</b></h1>
+<hr />
+<div class="post-details" *ngIf="post | async as postData">
+  <div><b>ID:</b> {{ postData.id }}</div>
+  <hr />
+  <div><b>Title:</b> {{ postData.title }}</div>
+  <hr />
+  <div><b>Description:</b> {{ postData.description }}</div>
+  <hr />
+  <div *ngFor="let comment of comments" class="comment">
+    <span *ngIf="!comment.editMode">{{ comment.commentText }}</span>
+    <form *ngIf="comment.editMode" (ngSubmit)="saveComment(comment)">
+      <input
+        type="text"
+        name="updatedCommentText"
+        [(ngModel)]="comment.updatedCommentText"
+      />
+      <button class="btn btn-success" type="submit">Save</button>
+      <button
+        class="btn btn-danger"
+        type="button"
+        (click)="cancelEditComment(comment)"
+      >
+        Cancel
+      </button>
+    </form>
+    <div>
+      <button
+        class="btn btn-info"
+        *ngIf="!comment.editMode"
+        (click)="editComment(comment)"
+      >
+        Edit
+      </button>
+      <button class="btn btn-danger" (click)="deleteComment(comment)">
+        Delete
+      </button>
+    </div>
+  </div>
+</div>
+<div>
+  <button class="btn btn-success" [routerLink]="['/posts']">
+    Back to Posts
+  </button>
+</div>
